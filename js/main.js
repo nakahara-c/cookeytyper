@@ -12,7 +12,6 @@ let itemBelongings = Array(itemData.length).fill(0);
 let isSave = true;
 let validGolden = false;
 let setGolden = false;
-let nextGolden = determineNextGolden();
 
 for (let i = 0; i < itemData.length; i++) {
     const itemList = generateItemDom(i + 1);
@@ -64,21 +63,26 @@ setInterval(() => {
 }, 10);
 
 function setNextGolden() {
-    nextGolden = determineNextGolden();
     setTimeout(() => {
         setGolden = true;
-    }, nextGolden);
+        setNextGolden();
+    }, determineNextGolden());
 }
 
 function enterGolden() {
     validGolden = true;
+    setGolden = false;
     canvas.classList.add('gold');
 
     setTimeout(() => {
         validGolden = false;
         canvas.classList.remove('gold');
-        setNextGolden();
     }, 20000);
+}
+
+function determineNextGolden() {
+    const next = Math.floor(Math.random() * 10000) + 60000;
+    return next; //ms
 }
 
 window.onload = adjustCanvasSize;
@@ -252,15 +256,8 @@ function createFallingKeyboard() {
     keyboardImg.style.left = `${randomX}px`;
 
     setTimeout(() => {
-        removeKeyDom(keyboardImg);
+        keyboardImg.remove();
     }, 6000);
-}
-
-function removeKeyDom(dom) {
-    dom.remove();
-    if (dom.classList.contains('golden')) {
-        setNextGolden();
-    }
 }
 
 function calculateAutoKpm() {
@@ -400,10 +397,6 @@ function renderPlusAnimation(addCount) {
     }, 1000);
 }
 
-function determineNextGolden() {
-    const next = Math.floor(Math.random() * 10000) + 60000;
-    return next; //ms
-}
 
 function fisherYatesShuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
