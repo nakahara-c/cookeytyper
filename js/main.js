@@ -56,12 +56,6 @@ setInterval(() => {
     updateRawKpm();
 }, 1000);
 
-// でばっぐ用チート
-setInterval(() => {
-    const nextKey = document.getElementById('typing_area').value[0];
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: nextKey }));
-}, 10);
-
 function setNextGolden() {
     setTimeout(() => {
         setGolden = true;
