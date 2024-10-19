@@ -38,7 +38,7 @@ renderItems();
 const update = () => {
     autoKpm = calculateAutoKpm();
     masterCount += autoKpm / 10;
-    const formattedCount = getNumberUnit(masterCount, 0);
+    const formattedCount = getNumberUnit(masterCount, 1);
     document.getElementById('typed_count').innerText = formattedCount;
     const kps = (autoKpm + rawKpm).toFixed(1);
     const formattedKps = getNumberUnit(kps, 1);
@@ -224,7 +224,7 @@ function renderItems() {
     for (let i = 0; i < itemCounts.length; i++) {
         const cnt = itemBelongings[i];
         const itemPrice = calcPrice(itemData[i].price, cnt);
-        const formattedItemPrice = getNumberUnit(itemPrice, 0);
+        const formattedItemPrice = getNumberUnit(itemPrice, 1);
         if (i === 0 || itemBelongings[i-1] > 0) {
             itemPrices[i].innerText = formattedItemPrice + ' keys[' + itemData[i].trigger + ']';
             const pow = addBonus(itemData[i].power, cnt);
